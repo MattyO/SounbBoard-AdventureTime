@@ -22,6 +22,43 @@ $(document).ready(function(){
     $(".container").css("background-image","url('static/img/background3.png')" );
     $(".container").css("background-repeat","no-repeat" );
 
-    //$("body").css("background-image","url('static/img/background3.png')" );
+    //$(".boardItem").css("position", "absolute");
+    var positions = new Array()
+    $(".boardItem").each(function(){
+        positions.push([$(this).position().left, $(this).position().top]);
+    });
+
+    $(".boardItem").css("position", "absolute");
+    $(".boardItem").each(function(index){
+     //   alert(positions[index][0] + ", " + positions[index][0]);
+        var newLeft = 0, newTop=0;
+        while(!(Math.abs(newLeft) >= 1000 || Math.abs(newTop) >= 1000)){
+            newLeft = randomPosition(positions[index][0]);
+            newTop = randomPosition(positions[index][1]);
+        }
+        $(this).offset({left: newLeft, top: newTop});
+        $(this).animate({left: positions[index][0], top: positions[index][1]}, 'slow');
+    });
+
+    function randomPosition(number){
+        return posOrNeg(sameOrBig(number));
+    }
+    
+    function posOrNeg(number){
+        if(Math.random() > .5){
+            return number * -1;
+        }else{
+            return number; 
+        }
+    }
+    
+    function sameOrBig(number){
+        if(Math.random() > .5){
+            return 1000;
+        }else{
+            return number; 
+        }
+    }
+
 });
 
