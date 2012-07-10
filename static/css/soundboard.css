@@ -1,0 +1,33 @@
+body{
+	background-color: rgb(24, 32, 45);
+}
+
+h1{
+	color:#ffffff;
+	margin-top:50px;
+}
+.boardItem{
+	background-color: rgba(255,255,255,.5);
+	border-radius: 10px;
+	margin: 5px;
+	padding:5px;
+	border: 1px solid gray;
+}
+
+.boardItem:hover{
+	cursor:hand; cursor:pointer;
+	background-color: rgba(0,0,0,.5);
+	color:white;
+}
+
+.description{
+	visibility: hidden;
+}
+
+.title{
+	font-size: 20px;
+	text-align: center;
+}
+.container{
+	background-repeat: no-repeat;
+}
