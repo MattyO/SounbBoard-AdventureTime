@@ -1,7 +1,11 @@
 $(document).ready(function(){
     $(".boardItem").click(function(){
        $(this).parent().find(".progress .bar").css("width", '0%'); 
-       $(this).find(".soundFile").get(0).play();
+       if($(this).find(".soundFile").length > 0){
+           $(this).find(".soundFile").get(0).play();
+       }else if( $(this).find(".videoFile").length > 0) {
+           $(this).find(".videoFile").get(0).play();
+       }
        //$(this).find(".progress .bar").css("width", '50%'); 
     });
     
@@ -11,10 +15,26 @@ $(document).ready(function(){
        $(this).parent().find(".progress .bar").css("width", progress+'%'); 
     });
 
+    $(".boardItem .videoFile").bind('timeupdate', function(){
+       var progress = ( $(this).get(0).currentTime / $(this).get(0).duration) * 100;
+       $(this).parent().find(".progress .bar").css("width", progress+'%'); 
+       //$(this).parent().find(".progress .bar").css("width", '30%'); 
+    });
+
     $(".boardItem .soundFile").bind('ended', function(){
         var progressBar =$(this).parent().find(".progress .bar");
         setTimeout(function(){
             progressBar.css("width", '0%'); 
+        },1000);
+    });
+
+    $(".boardItem .videoFile").bind('ended', function(){
+        var progressBar =$(this).parent().find(".progress .bar");
+        var mediaObject = $(this).get(0);
+        setTimeout(function(){
+            progressBar.css("width", '0%'); 
+            mediaObject.pause();
+            mediaObject.currentTime = 0;
         },1000);
     });
 
